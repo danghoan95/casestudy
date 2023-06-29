@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chợ tốt</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="menu">
+
+        <div class="up">
+            <ul>
+                <li class="logo">
+                    <a href="https://www.chotot.com/">
+                        <img src="ảnh/Bản sao của logo.PNG" height="46" width="114"/></a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="ảnh/Bản sao của icon1.PNG" height="27" width="28"/>
+                        Trang chủ
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.chotot.com/?ctfp=580622c8-daa6-4cbb-bd96-ddc7ac61874f">
+                        <img src="ảnh/icon2.PNG" height="27" width="30"/>
+                        Tôi bán
+                    </a>
+                </li>
+                <li>
+                    <a href="https://chat.chotot.com/chat?_gl=1*6l4lso*_ga*NTEzMjQ3NjAzLjE2ODc3NjYzMDQ.*_ga_XQVN5K27XX*MTY4Nzk1NzI2MC44LjEuMTY4Nzk1NzM2MC4yOS4wLjA.&_ga=2.93926237.1135600333.1687872732-513247603.1687766304">
+                        <img src="ảnh/icon3.PNG" height="24" width="34"/>
+                        Chat
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <img src="ảnh/icon4.PNG" height="25" width="27"/>
+                        Thông báo
+                    </a>
+                </li>
+                <li onclick="document.getElementById('display').style.display='block'">
+                    <a>
+                        <img src="ảnh/icon5.PNG" height="24" width="39"/>
+                        Thêm mới
+                    </a>
+                </li>
+                <li onclick="login()"><a>Đăng nhập</a> </li>
+            </ul>
+        </div>
+        <div class=" down">
+            <div class="search">
+                <input type="text" id="search-input" placeholder="Tìm kiếm trên chợ tốt">
+                <button onclick="search(document.getElementById('search-input').value)">
+                    <img src="ảnh/search.png" height="1300" width="1200"/>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none" id="display">
+    <h1><label for="name">Add product</label></h1>
+    <input type="text" placeholder="name" id="name">
+    <input type="text" placeholder="productprice" id="productprice">
+    <input type="text" placeholder="image" id="image">
+    <button onclick="THem()">Add</button>
+    <button onclick="document.getElementById('display').style.display='none'">Cancel</button>
+</div>
+
+<div id="div_edit" style="display: none;">
+    <h1><label for="nameEdit">Edit product</label></h1>
+    <input type="text" placeholder="Name Edit" id="nameEdit">
+    <input type="text" placeholder="New name" id="priceEdit">
+    <input type="text" placeholder="New name" id="imgEdit">
+    <button onclick="edit()">Edit</button>
+    <button onclick="document.getElementById('div_edit').style.display='none'">Cancel</button>
+</div>
+
+<div class="content" id="demo">
+
+</div>
+
+</div>
+
+</body>
+</html>
+<script>
+
+    class choTot {
+        name
+        productprice
+        image
+
+        constructor(name, productprice, image) {
+            this.name = name
+            this.productprice = productprice
+            this.image = image
+        }
+
+    }
+
+    product1 = new choTot("Bán nhà C4 1 lầu", "Giá : 340T", "ảnh/0fa9031aa203f5a9440e62eacb144836-2831499080277699413.jpg")
+    product2 = new choTot("Bán Sh mode", "Giá : 43T", "ảnh/5b5133793cf8484da12fe125106f429d-2824479470774261268.jpg")
+    product3 = new choTot("Bán nhà sân vườn", "Giá : 7.9ty", "ảnh/6ea9af542b2c14083217f35352370af5-2831491516998477044.jpg")
+    product4 = new choTot("Bán đồng hồ", "Giá : 7t", "ảnh/911857deaf290f4f3e4655d4bec91ee3-2828657904646863720.jpg")
+    product5 = new choTot("Bán máy nâng", "Giá : 500t", "ảnh/3566aea7a70b18a390ec9b3db9d31a40-2828950363149780839.jpg")
+    product6 = new choTot("Bán nhà 2 tầng", "Giá : 2ty", "ảnh/449f2b4eab7dea56fd28a9275baa34e6-2828819455452315732.jpg")
+
+    let product = [product1, product2, product3, product4, product5, product6];
+
+    function display() {
+
+        let data = ""
+        for (let i = 0; i < product.length; i++) {
+            data += '<div class="item">' + `<a href="https://www.chotot.com/"><img class="img" src=${product[i].image}></a>` + '<br>'
+            data += product[i].name + '<br>'
+            data += product[i].productprice + '<br>'
+            data += '<button onclick="Editproduct(' + i + ')">Edit</button>' + '<button onclick="deLete(' + i + ')">Delete</button>'
+            data += '</div>'
+        }
+        data += ""
+        document.getElementById("demo").innerHTML = data
+    }
+
+    display()
+
+    function deLete(id) {
+        let res = confirm("bạn muốn xoá không")
+        if (res == true) {
+            product.splice(id, 1)
+        }
+        display()
+    }
+
+    function THem() {
+        let name = document.getElementById("name").value
+        let productprice = document.getElementById("productprice").value
+        let image = document.getElementById("image").value
+        let d = new choTot(name, productprice, image)
+        product.push(d)
+        display()
+    }
+
+    let vitri;
+
+    function Editproduct(i) {
+        vitri = i
+        document.getElementById("div_edit").style.display = "block"
+        document.getElementById('nameEdit').value = product[i].name
+        document.getElementById('priceEdit').value = product[i].productprice
+        document.getElementById('imgEdit').value = product[i].image
+    }
+
+    function edit() {
+        let nameEdit = document.getElementById('nameEdit').value
+        let priceEdit = document.getElementById('priceEdit').value
+        let imgEdit = document.getElementById('imgEdit').value
+        let productEdit = new choTot(nameEdit, priceEdit, imgEdit)
+        product[vitri] = productEdit
+
+        display()
+    }
+
+    function search(keyword) {
+
+        let items = document.getElementsByClassName("item");
+        console.log(keyword)
+        console.log(items)
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let name = items[i].innerHTML;
+            console.log(name)
+            if (name.toLowerCase().includes(keyword.toLowerCase())) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none"
+            }
+        }
+    }
+
+function login(){
+    window.location.href='login.html'
+}
+
+
+
+
+</script>
